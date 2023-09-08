@@ -1,9 +1,10 @@
 // import bgImage from "../../assets/bg-image.jpg"
-import { useEffect, useState} from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
-const Form = () => {
+const Signup = () => {
     const backgroundImage =
     "https://images.unsplash.com/photo-1540835296355-c04f7a063cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80";
   const [username, setUsername] = useState("");
@@ -93,7 +94,14 @@ const Form = () => {
               >
                 Sign Up
               </button>
+              
             </form>
+            <p className="mt-4 text-center">
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-500 hover:underline">
+                Log in
+              </Link>
+            </p>
           </div>
         </div>
       </div>
@@ -101,4 +109,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Signup;
