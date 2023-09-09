@@ -1,40 +1,35 @@
 // import bgImage from "../../assets/bg-image.jpg"
-import { useState} from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
 const Signup = () => {
-    const backgroundImage =
+  const backgroundImage =
     "https://images.unsplash.com/photo-1540835296355-c04f7a063cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80";
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-    const navigate=useNavigate()
-    const url="http://localhost:4000/api/auth/register"
-    
-        const handleSignup=async(e)=>{
-          e.preventDefault()
-            try {
-                const data=await axios.post(url,{
-                    username:username,
-                    email:email,
-                    password:password
-                }) 
-                console.log(data.data)
-                if(data.status===200){
-                    navigate("/dashboard")
-                }
-                
-            } catch (error) {
-                console.log(error)
-            }
-       
-    }
-    
+  const navigate = useNavigate();
+  const url = "http://localhost:4000/api/auth/register";
 
-    
-  
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await axios.post(url, {
+        username: username,
+        email: email,
+        password: password,
+      });
+      console.log(data.data);
+      if (data.status === 200) {
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex h-screen  ">
       <div
@@ -55,8 +50,9 @@ const Signup = () => {
                 <input
                   type="text"
                   id="username"
+                  required={true}
                   value={username}
-                  onChange={(e)=>setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                   placeholder="Enter your username"
                 />
@@ -69,7 +65,8 @@ const Signup = () => {
                   type="email"
                   id="email"
                   value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  required={true}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                   placeholder="Enter your email"
                 />
@@ -81,8 +78,9 @@ const Signup = () => {
                 <input
                   type="password"
                   id="password"
+                  required={true}
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                   placeholder="Enter your password"
                 />
@@ -94,10 +92,9 @@ const Signup = () => {
               >
                 Sign Up
               </button>
-              
             </form>
             <p className="mt-4 text-center">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <Link to="/login" className="text-blue-500 hover:underline">
                 Log in
               </Link>

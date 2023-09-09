@@ -26,6 +26,7 @@ const Login = () => {
                 <input
                   type="email"
                   id="email"
+                  required={true}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
@@ -40,6 +41,7 @@ const Login = () => {
                   type="password"
                   id="password"
                   value={password}
+                  required={true}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                   placeholder="Enter your password"

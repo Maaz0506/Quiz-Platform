@@ -1,95 +1,68 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardGroup, Container } from "react-bootstrap";
+import  {  useEffect, useState } from "react";
+import { Card, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import axios from "axios";
+// import LoginContext from "../../context/LoginContext";
 
 const QuizCards = () => {
+  const [typeData, setTypeData] = useState([]);
+  
+  const token=localStorage.getItem("accessToken")
+  console.log(token)
+  useEffect(()=>{
+    const url = "http://localhost:4000/api/type/getTypes";
+    const handleQuizData = async () => {
+      try {
+        const data = await axios.get(url, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setTypeData(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleQuizData();
+  },[token])
+   
+  
   return (
-    <Container className="my-4">
-        <Row className="justify-content-md-center">
-            <Col md={6}>
-                <Card style={{ margin: "10px" }}>
-                    <Card.Img variant="top" className="h-[22rem]" src= "src\assets\Web.jpg"/>
-                    <Card.Body className="h-full">
-                    <Card.Text className="fst-italic md:text-lg capitalize text-sm">
-                        <strong className="px-2">Title:</strong>
-                        <br />
-                        <strong className="px-2">Author:</strong>
-                        <br />
-                        <strong className="px-2">Genre:</strong>
-                        <br />
-                        <strong className="px-2">Description:</strong>
-                    </Card.Text>
-                    </Card.Body>
-                    <div className="mb-3 mx-auto">
-                        <Button variant="outline-success">Take Quiz</Button>
-                    </div>
-                </Card>
+    <Container className="my-8 grid grid-cols-2 ">
+      {typeData.map((type) => (
+        <>
+          <Row className="justify-content-md-center" key={type.quizId}>
+            <Col md={6} key={type.quizId}>
+              <Card style={{ margin: "10px",width:"400px"}}>
+                <Card.Img
+                  variant="top"
+                  className="h-[22rem]"
+                  src={type.imageUrl}
+                />
+                <Card.Body className="h-[250px] ">
+                  <Card.Text className="fst-italic md:text-lg capitalize text-sm ">
+                    <strong className="">Title:</strong>
+                    <span> {type.quizName}</span>
+                    <br />
+                    <strong className="">No of questions:</strong>
+                    <span> 10</span>
+                    <br />
+                    <strong className="">Difficulty Level:</strong>
+                    <span> Intermediate</span>
+                    <br />
+                    <strong className="">Description:</strong>
+                    <span> {type.description}</span>
+                  </Card.Text>
+                </Card.Body>
+                <div className="mb-3 mx-auto">
+                  <Button variant="outline-success">Take Quiz</Button>
+                </div>
+              </Card>
             </Col>
-            <Col md={6}>
-                <Card style={{ margin: "10px" }}>
-                    <Card.Img variant="top" className="h-[22rem]" src= "src\assets\AI.jpeg"/>
-                    <Card.Body className="h-full">
-                    <Card.Text className="fst-italic md:text-lg capitalize text-sm">
-                        <strong className="px-2">Title:</strong>
-                        <br />
-                        <strong className="px-2">Author:</strong>
-                        <br />
-                        <strong className="px-2">Genre:</strong>
-                        <br />
-                        <strong className="px-2">Description:</strong>
-                    </Card.Text>
-                    </Card.Body>
-                    <div className="mb-3 mx-auto">
-                        <Button variant="outline-success">Take Quiz</Button>
-                    </div>
-                </Card>
-            </Col>
-        </Row>
-        <Row className="justify-content-md-center">
-            <Col md={6}>
-                <Card style={{ margin: "10px" }}>
-                    <Card.Img variant="top" className="h-[22rem]" src= "src\assets\cybersecurity.png"/>
-                    <Card.Body className="h-full">
-                    <Card.Text className="fst-italic md:text-lg capitalize text-sm">
-                        <strong className="px-2">Title:</strong>
-                        <br />
-                        <strong className="px-2">Author:</strong>
-                        <br />
-                        <strong className="px-2">Genre:</strong>
-                        <br />
-                        <strong className="px-2">Description:</strong>
-                    </Card.Text>
-                    </Card.Body>
-                    <div className="mb-3 mx-auto">
-                        <Button variant="outline-success">Take Quiz</Button>
-                    </div>
-                </Card>
-            </Col>
-            <Col md={6}>
-                <Card style={{ margin: "10px" }}>
-                    <Card.Img variant="top" className="h-[22rem]" src= "src\assets\DBMS.png"/>
-                    <Card.Body className="h-full">
-                    <Card.Text className="fst-italic md:text-lg capitalize text-sm">
-                        <strong className="px-2">Title:</strong>
-                        <br />
-                        <strong className="px-2">Author:</strong>
-                        <br />
-                        <strong className="px-2">Genre:</strong>
-                        <br />
-                        <strong className="px-2">Description:</strong>
-                    </Card.Text>
-                    </Card.Body>
-                    <div className="mb-3 mx-auto">
-                        <Button variant="outline-success">Take Quiz</Button>
-                    </div>
-                </Card>
-            </Col>
-        </Row>
-           
+          </Row>
+        </>
+      ))}
     </Container>
-    
   );
 };
 

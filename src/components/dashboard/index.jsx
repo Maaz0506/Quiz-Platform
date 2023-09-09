@@ -3,7 +3,8 @@ import QuizCards from "../QuizCards"
 
 const Dashboard = () => {
   return (
-    <><Header /><QuizCards /></>
+    <><Header />
+    <QuizCards /></>
   )
 }
 
