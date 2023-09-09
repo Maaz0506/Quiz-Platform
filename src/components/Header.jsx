@@ -1,17 +1,21 @@
-import { React, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useContext } from "react";
+import {  useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button"; 
+import LoginContext from "../../context/LoginContext";
 
 const Header = () => {
+  const {setToken}=useContext(LoginContext)
   const navigate = useNavigate();
 
   // Function to handle logout
   const handleLogout = () => {
+    setToken("")
     // Perform logout logic here (e.g., clear session, remove tokens, etc.)
     // After logout, navigate to the login or home page
+
     navigate("/login"); // Replace with the actual route for your login page
   };
 
