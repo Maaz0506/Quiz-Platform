@@ -10,25 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.8",
-    "@mui/material": "^5.14.8",
-    "@mui/styled-engine-sc": "^5.14.8",
-    "bootstrap": "^5.3.1",
-    "mui": "^0.0.1",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.8.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.15.0",
-    "styled-components": "^5.3.11"
-=======
     "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0"
->>>>>>> 580fd9d4211dc6a55617cb8847ade19fb1a1f25d
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
