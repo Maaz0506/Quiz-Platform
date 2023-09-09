@@ -1,8 +1,9 @@
 import Header from "../Header"
+import QuizCards from "../QuizCards"
 
 const Dashboard = () => {
   return (
-    <Header />
+    <><Header /><QuizCards /></>
   )
 }
 
