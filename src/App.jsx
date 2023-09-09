@@ -1,21 +1,21 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Signup from "./components/forms/Signup";
 import Login from "./components/forms/Login";
 import Dashboard from "./components/dashboard";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { DataProvider } from "../context/LoginContext";
+
 
 const App = () => {
   return (
     <>
-
-      <BrowserRouter>
+    <DataProvider>     
         <Routes>
           <Route path="/" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter>
-
+        </Routes>   
+      </DataProvider>
     </>
   );
 };
