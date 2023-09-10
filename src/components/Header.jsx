@@ -30,7 +30,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#link">My Scores</Nav.Link>
+            <Nav.Link href="http://127.0.0.1:5173/history">My Scores</Nav.Link>
             <Nav.Link href="#link">Profile</Nav.Link>
             <Nav.Link href="#link">About</Nav.Link>
           </Nav>
