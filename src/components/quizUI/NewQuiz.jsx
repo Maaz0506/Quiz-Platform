@@ -111,6 +111,10 @@ const handleResult = () => {
 
 const { correctQuestions, wrongQuestions } = handleResult();
 
+const showResult = () => {
+  return <Result />;
+};
+
 console.log("Selected Answer" + selectedAnswer);
 // };
 const currentQuestion = questions[currentQuestionIndex];
@@ -183,7 +187,7 @@ return (
               </button>
               <button
                 className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                onClick={<Result />}
+                onClick={showResult}
               >
                 <FontAwesomeIcon icon={faChartBar} className="mr-2" /> View Show
                 Result
