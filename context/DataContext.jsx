@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-export const LoginContext = createContext({});
+export const DataContext = createContext({});
 export const DataProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const Loginurl = "http://localhost:4000/api/auth/login";
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ export const DataProvider = ({ children }) => {
         email: email,
         password: password,
       });
-      console.log(data.data)
+
       const accessToken = data.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
       if (data.status === 200) {
@@ -30,7 +29,7 @@ export const DataProvider = ({ children }) => {
   };
 
   return (
-    <LoginContext.Provider
+    <DataContext.Provider
       value={{
         email: email,
         password: password,
@@ -40,10 +39,10 @@ export const DataProvider = ({ children }) => {
       }}
     >
       {children}
-    </LoginContext.Provider>
+    </DataContext.Provider>
   );
 };
-export default LoginContext;
+export default DataContext;
 
 DataProvider.propTypes = {
   children: PropTypes.any,

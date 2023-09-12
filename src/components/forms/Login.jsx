@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LoginContext from "../../../context/LoginContext";
+import LoginContext from "../../../context/DataContext";
 import { useContext } from "react";
 const Login = () => {
   const {email,setEmail,password,setPassword,handleLogin}=useContext(LoginContext)

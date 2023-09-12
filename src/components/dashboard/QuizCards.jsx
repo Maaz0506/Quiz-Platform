@@ -1,16 +1,17 @@
 import  {  useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // import LoginContext from "../../context/LoginContext";
 
 const QuizCards = () => {
   const [typeData, setTypeData] = useState([]);
   
   const token=localStorage.getItem("accessToken")
-  console.log(token)
+  
   useEffect(()=>{
     const url = "http://localhost:4000/api/type/getTypes";
     const handleQuizData = async () => {
@@ -26,7 +27,6 @@ const QuizCards = () => {
     handleQuizData();
   },[token])
    
-  
   return (
     <Container className="my-8 grid grid-cols-2 ">
       {typeData.map((type) => (
@@ -55,7 +55,7 @@ const QuizCards = () => {
                   </Card.Text>
                 </Card.Body>
                 <div className="mb-3 mx-auto">
-                  <Button variant="outline-success">Take Quiz</Button>
+                  <Link to={"/quizUI"} className="bg-green-400 py-2 text-lg px-2 rounded-lg hover:bg-green-300">Take Quiz</Link>
                 </div>
               </Card>
             </Col>
