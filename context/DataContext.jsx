@@ -7,6 +7,7 @@ export const DataContext = createContext({});
 export const DataProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
 
   const Loginurl = "http://localhost:4000/api/auth/login";
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export const DataProvider = ({ children }) => {
 
       const accessToken = data.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("email", email);
       if (data.status === 200) {
         navigate("/dashboard");
       }

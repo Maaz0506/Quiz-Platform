@@ -10,7 +10,9 @@ const Header = () => {
 
   // Function to handle logout
   const handleLogout = () => {
-    localStorage.setItem("accessToken", "");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("quizId");
+    localStorage.removeItem("email")
     navigate("/login");
   };
 
@@ -31,8 +33,6 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="http://127.0.0.1:5173/history">My Scores</Nav.Link>
-            <Nav.Link href="#link">Profile</Nav.Link>
-            <Nav.Link href="#link">About</Nav.Link>
           </Nav>
           <Button variant="outline-primary" onClick={handleLogout}>
             Logout

@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 const QuizCards = () => {
   const [typeData, setTypeData] = useState([]);
-  
   const token=localStorage.getItem("accessToken")
   
   useEffect(()=>{
@@ -26,13 +25,16 @@ const QuizCards = () => {
     };
     handleQuizData();
   },[token])
-   
+   const handleQuizId=(id)=>{
+    const fetchedquizId=localStorage.setItem("quizId",id)
+    console.log(fetchedquizId)
+  }
   return (
-    <Container className="my-8 grid grid-cols-2 ">
-      {typeData.map((type) => (
+    <Container className="my-8 grid grid-cols-2 " >
+      {typeData.map((type,index) => (
         <>
-          <Row className="justify-content-md-center" key={type.quizId}>
-            <Col md={6} key={type.quizId}>
+          <Row className="justify-content-md-center" key={index}>
+            <Col md={6} key={index}>
               <Card style={{ margin: "10px",width:"400px"}}>
                 <Card.Img
                   variant="top"
@@ -55,7 +57,7 @@ const QuizCards = () => {
                   </Card.Text>
                 </Card.Body>
                 <div className="mb-3 mx-auto">
-                  <Link to={"/quizUI"} className="bg-green-400 py-2 text-lg px-2 rounded-lg hover:bg-green-300">Take Quiz</Link>
+                  <Link to={"/quizUI"} className="bg-green-400 py-2 text-lg px-2 rounded-lg hover:bg-green-300" onClick={()=>handleQuizId(type.quizId)}>Take Quiz</Link>
                 </div>
               </Card>
             </Col>

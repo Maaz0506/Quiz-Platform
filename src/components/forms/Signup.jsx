@@ -24,6 +24,7 @@ const Signup = () => {
       console.log(data.data);
       if (data.status === 200) {
         navigate("/dashboard");
+        localStorage.setItem("email",email)
       }
     } catch (error) {
       console.log(error);
