@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { data } from "autoprefixer";
 const token = localStorage.getItem("accessToken");
 const NewQuiz = () => {
   const email = localStorage.getItem("email");
@@ -64,67 +63,60 @@ const NewQuiz = () => {
     setQuestionOptionMapping(mapping);
   }, [questions, options]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (selectedAnswer === null) {
       alert("Attempted without selecting an option");
       setHasAttemptedNextWithoutSelection(true);
       return; // Stop here, don't proceed to the next question
     }
-
+  
+    const currentQuestion = questions[currentQuestionIndex];
+    const correctOption = questionOptionMapping[currentQuestion.questionId].options.find(
+      (option) => option.isCorrect === true
+    );
+  
+    if (selectedAnswer === correctOption.isCorrect.toString()) {
+      setCorrectQuestions([...correctQuestions, currentQuestion]);
+      setScore(score + 5);
+    } else {
+      setWrongQuestions([...wrongQuestions, currentQuestion]);
+    }
+  
     if (currentQuestionIndex < questions.length - 1) {
-      questions.forEach((question) => {
-        const correctOption = questionOptionMapping[
-          question.questionId
-        ].options.find((option) => option.isCorrect === true);
-
-        if (selectedAnswer === correctOption.isCorrect.toString()) {
-          setCorrectQuestions([...correctQuestions, currentQuestion]);
-          setScore(score + 5);
-        } else {
-          setWrongQuestions([...wrongQuestions, currentQuestion]);
-        }
-      });
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
+      // Quiz is completed
       const lastQuestion = questions[currentQuestionIndex];
-      const lastQuestionCorrectOption = questionOptionMapping[
-        lastQuestion.questionId
-      ].options.find((option) => option.isCorrect === true);
-
+      const lastQuestionCorrectOption = correctOption;
+  
       if (selectedAnswer === lastQuestionCorrectOption.isCorrect.toString()) {
         setScore(score + 5);
         setCorrectQuestions([...correctQuestions, currentQuestion]);
-        setQuizCompleted(true);
       } else {
         setWrongQuestions([...wrongQuestions, currentQuestion]);
-        const handleScore = async () => {
-          try {
-            const data = await axios.post(
-              "http://localhost:4000/api/score/addScore",
-              {
-                quizId: quizId, // Include any necessary data in the request
-                score: score,
-                email: email,
-                // Include other relevant data as needed
-              },
-              { headers: { Authorization: `Bearer ${token}` } }
-            );
-            console.log(data.data);
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        handleScore();
-        setQuizCompleted(true);
+  
+        // Handle score after the quiz is completed
+        try {
+          const data = await axios.post(
+            "http://localhost:4000/api/score/addScore",
+            {
+              quizId: quizId,
+              score: score,
+              email: email,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          console.log("Score added successfully:", data);
+        } catch (error) {
+          console.error("Error adding score:", error);
+        }
       }
+      setQuizCompleted(true);
     }
-
+  
     setSelectedAnswer(null);
   };
-
-  console.log(correctQuestions);
-  console.log(wrongQuestions);
-
+  
   const currentQuestion = questions[currentQuestionIndex];
   const currentQuestionData =
     questionOptionMapping[currentQuestion?.questionId];
@@ -149,7 +141,7 @@ const NewQuiz = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen flex items-start py-10 justify-center bg-gray-100 ">
+      <div className="min-h-screen flex items-start py-10 justify-center bg-gray-100  ">
         {isLoading ? (
           <p className="text-2xl text-gray-700 shadow-md p-4 rounded-md bg-white">
             Loading...
@@ -200,10 +192,10 @@ const NewQuiz = () => {
               Quiz Completed!
             </p>
             <div className="mt-4">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">
+              <Link to={'/history'} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">
                 <FontAwesomeIcon icon={faHistory} className="mr-2" /> View
                 History
-              </button>
+              </Link>
               <button
                 className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                 onClick={() => setButtonClicked(true)}
